@@ -1,6 +1,9 @@
 package com.izzymoriguchi.popularmoviesstage1.model;
 
-public class Movie {
+import android.os.Parcel;
+import android.os.Parcelable;
+
+public class Movie implements Parcelable {
     private String posterPath;
     private String originalTitle;
     private String overview;
@@ -13,6 +16,18 @@ public class Movie {
         this.overview = overview;
         this.voteAverage = voteAverage;
         this.releaseDate = releaseDate;
+    }
+
+    /**
+     * Constructor for re-constructing object from a parcel
+     * @param in  parcel from which to read this object
+     */
+    public Movie(Parcel in) {
+        posterPath = in.readString();
+        originalTitle = in.readString();
+        overview = in.readString();
+        voteAverage = in.readDouble();
+        releaseDate = in.readString();
     }
 
     public String getPosterPath() {
@@ -54,4 +69,28 @@ public class Movie {
     public void setReleaseDate(String releaseDate) {
         this.releaseDate = releaseDate;
     }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel parcel, int i) {
+        parcel.writeString(posterPath);
+        parcel.writeString(originalTitle);
+        parcel.writeString(overview);
+        parcel.writeDouble(voteAverage);
+        parcel.writeString(releaseDate);
+    }
+
+    public static final Parcelable.Creator<Movie> CREATOR = new Parcelable.Creator<Movie>() {
+        public Movie createFromParcel(Parcel in) {
+            return new Movie(in);
+        }
+
+        public Movie[] newArray(int size) {
+            return new Movie[size];
+        }
+    };
 }
