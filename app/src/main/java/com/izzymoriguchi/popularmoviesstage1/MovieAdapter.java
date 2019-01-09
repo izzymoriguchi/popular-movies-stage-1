@@ -3,23 +3,24 @@ package com.izzymoriguchi.popularmoviesstage1;
 import android.content.Context;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
+
+import com.izzymoriguchi.popularmoviesstage1.model.Movie;
+import com.squareup.picasso.Picasso;
+
+import java.util.ArrayList;
 
 public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MovieViewHolder> {
 
-    private int mNumberItems;
+    private ArrayList<Movie> mListOfMovies;
 
-    /**
-     * Constructor for GreenAdapter that accepts a number of items to display and the specification
-     * for the ListItemClickListener.
-     *
-     * @param numberOfItems Number of items to display in list
-     */
-    public MovieAdapter(int numberOfItems) {
-        mNumberItems = numberOfItems;
+    public MovieAdapter(ArrayList<Movie> listOfMovies) {
+        mListOfMovies = listOfMovies;
     }
 
     @NonNull
@@ -39,15 +40,14 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MovieViewHol
 
     @Override
     public int getItemCount() {
-        return mNumberItems;
+        return mListOfMovies.size();
     }
 
     class MovieViewHolder extends RecyclerView.ViewHolder {
-        TextView listItemNumberView;
+        ImageView movieView;
         public MovieViewHolder(@NonNull View itemView) {
             super(itemView);
-            listItemNumberView = itemView.findViewById(R.id.tv_item_number);
-
+            movieView = itemView.findViewById(R.id.iv_movie_poster);
         }
 
         /**
@@ -56,7 +56,7 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MovieViewHol
          * @param listIndex Position of the item in the list
          */
         void bind(int listIndex) {
-            listItemNumberView.setText(String.valueOf(listIndex));
+            Picasso.get().load(mListOfMovies.get(listIndex).getPosterPath()).into(movieView);
         }
     }
 }

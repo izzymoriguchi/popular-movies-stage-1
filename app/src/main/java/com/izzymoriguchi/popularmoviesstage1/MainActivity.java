@@ -28,21 +28,17 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-//        listOfMovies = new ArrayList<>();
+        listOfMovies = new ArrayList<>();
 
-        // TODO: call new MovieQueryTask().execute
         URL url = NetworkUtils.buildUrl();
         new MovieQueryTask().execute(url);
 
-//        recyclerView = findViewById(R.id.rv_movies);
-//
-//        GridLayoutManager layoutManager = new GridLayoutManager(this, 3);
-//        recyclerView.setLayoutManager(layoutManager);
-//
-//        recyclerView.setHasFixedSize(true);
-//
-//        adapter = new MovieAdapter(NUM_LIST_ITEMS);
-//        recyclerView.setAdapter(adapter);
+        recyclerView = findViewById(R.id.rv_movies);
+
+        GridLayoutManager layoutManager = new GridLayoutManager(this, 2);
+        recyclerView.setLayoutManager(layoutManager);
+
+        recyclerView.setHasFixedSize(true);
     }
 
     public class MovieQueryTask extends AsyncTask<URL, Void, String> {
@@ -68,11 +64,17 @@ public class MainActivity extends AppCompatActivity {
                     Log.d(TAG, "doInBackground releaseDate: " + movie.getReleaseDate());
                     Log.d(TAG, "doInBackground: ======================================");
                 }
-                Log.d(TAG, "doInBackground response: " + response);
             } else {
                 Log.d(TAG, "doInBackground: no response");
             }
             return response;
+        }
+
+        @Override
+        protected void onPostExecute(String s) {
+            super.onPostExecute(s);
+            adapter = new MovieAdapter(listOfMovies);
+            recyclerView.setAdapter(adapter);
         }
     }
 }

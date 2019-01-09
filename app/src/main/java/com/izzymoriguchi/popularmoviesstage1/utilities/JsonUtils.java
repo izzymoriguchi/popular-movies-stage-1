@@ -9,6 +9,9 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 
 public class JsonUtils {
+    final static String IMAGE_BASE_URL = "http://image.tmdb.org/t/p/";
+    final static String IMAGE_SIZE = "w185";
+
     public static ArrayList<Movie> parseMovieJson(String jsonStr) {
         ArrayList<Movie> listOfMovies = new ArrayList<>();
         try {
@@ -18,7 +21,7 @@ public class JsonUtils {
 
             for (int i = 0; i < results.length(); i++) {
                 JSONObject movie = results.getJSONObject(i);
-                String posterPath = movie.getString("poster_path");
+                String posterPath = IMAGE_BASE_URL + IMAGE_SIZE + movie.getString("poster_path");
                 String originalTitle = movie.getString("original_title");
                 String overview = movie.getString("overview");
                 double voteAverage = movie.getDouble("vote_average");
