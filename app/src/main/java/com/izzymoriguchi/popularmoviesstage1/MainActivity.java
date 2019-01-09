@@ -1,11 +1,11 @@
 package com.izzymoriguchi.popularmoviesstage1;
 
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 
 import com.izzymoriguchi.popularmoviesstage1.model.Movie;
 import com.izzymoriguchi.popularmoviesstage1.utilities.JsonUtils;
@@ -15,13 +15,12 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
 
-public class MainActivity extends AppCompatActivity {
-    private static final String TAG = "MainActivity";
-    private static final int NUM_LIST_ITEMS = 100;
+public class MainActivity extends AppCompatActivity implements MovieAdapter.MovieItemClickListener {
+    private static final String TAG = MainActivity.class.getSimpleName();
 
     private MovieAdapter adapter;
     private RecyclerView recyclerView;
-
+    private MovieAdapter.MovieItemClickListener listener;
     ArrayList<Movie> listOfMovies;
 
     @Override
@@ -39,6 +38,14 @@ public class MainActivity extends AppCompatActivity {
         recyclerView.setLayoutManager(layoutManager);
 
         recyclerView.setHasFixedSize(true);
+
+        listener = this;
+    }
+
+    @Override
+    public void onMovieItemClick(int index) {
+        Intent intent = new Intent(MainActivity.this, MovieDetailActivity.class);
+        startActivity(intent);
     }
 
     public class MovieQueryTask extends AsyncTask<URL, Void, String> {
@@ -62,7 +69,7 @@ public class MainActivity extends AppCompatActivity {
         @Override
         protected void onPostExecute(String s) {
             super.onPostExecute(s);
-            adapter = new MovieAdapter(listOfMovies);
+            adapter = new MovieAdapter(listOfMovies, listener);
             recyclerView.setAdapter(adapter);
         }
     }
