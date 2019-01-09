@@ -6,6 +6,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.Menu;
+import android.view.MenuItem;
 
 import com.izzymoriguchi.popularmoviesstage1.model.Movie;
 import com.izzymoriguchi.popularmoviesstage1.utilities.JsonUtils;
@@ -29,7 +31,7 @@ public class MainActivity extends AppCompatActivity implements MovieAdapter.Movi
         setContentView(R.layout.activity_main);
         listOfMovies = new ArrayList<>();
 
-        URL url = NetworkUtils.buildUrl();
+        URL url = NetworkUtils.buildUrl(NetworkUtils.SORT_BY_POPULAR);
         new MovieQueryTask().execute(url);
 
         recyclerView = findViewById(R.id.rv_movies);
@@ -47,6 +49,25 @@ public class MainActivity extends AppCompatActivity implements MovieAdapter.Movi
         Intent intent = new Intent(MainActivity.this, MovieDetailActivity.class);
         intent.putExtra(intent.EXTRA_TEXT, listOfMovies.get(index));
         startActivity(intent);
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.main, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int itemId = item.getItemId();
+        if (itemId == R.id.menu_sort_popular) {
+            new MovieQueryTask().execute(NetworkUtils.buildUrl(NetworkUtils.SORT_BY_POPULAR));
+            return true;
+        } else if (itemId == R.id.menu_sort_top_rated) {
+            new MovieQueryTask().execute(NetworkUtils.buildUrl(NetworkUtils.SORT_BY_TOP_RATED));
+            return true;
+        }
+        return super.onOptionsItemSelected(item);
     }
 
     public class MovieQueryTask extends AsyncTask<URL, Void, String> {

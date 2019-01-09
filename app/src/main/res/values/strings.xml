@@ -3,4 +3,6 @@
     <string name="release_date">Release Date:</string>
     <string name="synopsis">Synopsis</string>
     <string name="rating">Rating:</string>
+    <string name="sort_by_popular">Sort by popular</string>
+    <string name="sort_by_rated">Sort by top rated</string>
 </resources>

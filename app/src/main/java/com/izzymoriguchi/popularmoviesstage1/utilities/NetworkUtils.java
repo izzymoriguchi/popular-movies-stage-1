@@ -10,7 +10,9 @@ import java.net.URL;
 import java.util.Scanner;
 
 public class NetworkUtils {
-    final static String TMDB_BASE_URL = "https://api.themoviedb.org/3/movie/popular";
+    public final static String SORT_BY_POPULAR = "popular";
+    public final static String SORT_BY_TOP_RATED = "top_rated";
+    final static String TMDB_BASE_URL = "https://api.themoviedb.org/3/movie/";
 
     final static String PARAM_API_KEY = "api_key";
     final static String apiKey = "2023f7fb3c637e6a001d820f3795a124";
@@ -18,8 +20,8 @@ public class NetworkUtils {
     final static String PARAM_LANGUAGE = "language";
     final static String langage = "en-US";
 
-    public static URL buildUrl() {
-        Uri builtUri = Uri.parse(TMDB_BASE_URL).buildUpon()
+    public static URL buildUrl(String sortType) {
+        Uri builtUri = Uri.parse(TMDB_BASE_URL + sortType).buildUpon()
                 .appendQueryParameter(PARAM_API_KEY, apiKey)
                 .appendQueryParameter(PARAM_LANGUAGE, langage)
                 .build();
