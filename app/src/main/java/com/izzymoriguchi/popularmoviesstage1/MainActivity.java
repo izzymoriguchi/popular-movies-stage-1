@@ -55,17 +55,6 @@ public class MainActivity extends AppCompatActivity {
 
             if (response != null) {
                 listOfMovies = JsonUtils.parseMovieJson(response);
-                for (int i = 0; i < 10; i++) {
-                    Movie movie = listOfMovies.get(i);
-                    Log.d(TAG, "doInBackground originalTitle: " + movie.getOriginalTitle());
-                    Log.d(TAG, "doInBackground posterPath: " + movie.getPosterPath());
-                    Log.d(TAG, "doInBackground overview: " + movie.getOverview());
-                    Log.d(TAG, "doInBackground voteAverage: " + movie.getVoteAverage());
-                    Log.d(TAG, "doInBackground releaseDate: " + movie.getReleaseDate());
-                    Log.d(TAG, "doInBackground: ======================================");
-                }
-            } else {
-                Log.d(TAG, "doInBackground: no response");
             }
             return response;
         }
