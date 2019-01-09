@@ -15,15 +15,15 @@ public class NetworkUtils {
     final static String TMDB_BASE_URL = "https://api.themoviedb.org/3/movie/";
 
     final static String PARAM_API_KEY = "api_key";
-    final static String apiKey = "2023f7fb3c637e6a001d820f3795a124";
+    final static String apiKey = "YOUR_API_KEY";
 
     final static String PARAM_LANGUAGE = "language";
-    final static String langage = "en-US";
+    final static String language = "en-US";
 
     public static URL buildUrl(String sortType) {
         Uri builtUri = Uri.parse(TMDB_BASE_URL + sortType).buildUpon()
                 .appendQueryParameter(PARAM_API_KEY, apiKey)
-                .appendQueryParameter(PARAM_LANGUAGE, langage)
+                .appendQueryParameter(PARAM_LANGUAGE, language)
                 .build();
 
         URL url = null;

@@ -10,22 +10,17 @@ import com.izzymoriguchi.popularmoviesstage1.model.Movie;
 import com.squareup.picasso.Picasso;
 
 public class MovieDetailActivity extends AppCompatActivity {
-    private TextView mTitle;
-    private ImageView mMovieImage;
-    private TextView mOverview;
-    private TextView mReleaseDate;
-    private TextView mVoteRating;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_movie_detail);
 
-        mTitle = findViewById(R.id.tv_movie_title);
-        mMovieImage = findViewById(R.id.iv_movie_image);
-        mOverview = findViewById(R.id.tv_movie_overview);
-        mReleaseDate = findViewById(R.id.tv_release_date);
-        mVoteRating = findViewById(R.id.tv_user_rating);
+        TextView mTitle = findViewById(R.id.tv_movie_title);
+        ImageView mMovieImage = findViewById(R.id.iv_movie_image);
+        TextView mOverview = findViewById(R.id.tv_movie_overview);
+        TextView mReleaseDate = findViewById(R.id.tv_release_date);
+        TextView mVoteRating = findViewById(R.id.tv_user_rating);
 
         Intent intent = getIntent();
 

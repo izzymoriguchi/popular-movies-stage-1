@@ -20,10 +20,9 @@ import java.util.ArrayList;
 public class MainActivity extends AppCompatActivity implements MovieAdapter.MovieItemClickListener {
     private static final String TAG = MainActivity.class.getSimpleName();
 
-    private MovieAdapter adapter;
     private RecyclerView recyclerView;
     private MovieAdapter.MovieItemClickListener listener;
-    ArrayList<Movie> listOfMovies;
+    private ArrayList<Movie> listOfMovies;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -91,7 +90,7 @@ public class MainActivity extends AppCompatActivity implements MovieAdapter.Movi
         @Override
         protected void onPostExecute(String s) {
             super.onPostExecute(s);
-            adapter = new MovieAdapter(listOfMovies, listener);
+            MovieAdapter adapter = new MovieAdapter(listOfMovies, listener);
             recyclerView.setAdapter(adapter);
         }
     }
